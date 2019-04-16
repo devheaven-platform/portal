@@ -151,3 +151,4 @@ $RECYCLE.BIN/
 # Custom
 .cache/
 dist/
+package-json.lock
