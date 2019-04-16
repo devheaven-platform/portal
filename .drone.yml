@@ -17,23 +17,16 @@ pipeline:
       branch: master
       event: push
 
-  publish-production:
-    image: plugins/docker
-    repo: devheavenci/portal
-    tags: "${DRONE_TAG##v}"
-    secrets: [ docker_username, docker_password ]
-    when:
-      event: tag
-
   deploy:
     image: quay.io/honestbee/drone-kubernetes
     namespace: portal
     deployment: portal-deployment
     repo: devheavenci/portal
     container: portal
-    tag: "${DRONE_TAG##v}"
+    tag: "${DRONE_COMMIT_SHA:0:8}"
     secrets: [ kubernetes_server, kubernetes_token, kubernetes_cert ]
     when:
-      event: tag
+      branch: master
+      event: push
 
 branches: master
