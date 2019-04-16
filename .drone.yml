@@ -1,8 +1,6 @@
 pipeline:
   test:
     image: node
-    environment:
-      NODE_PATH: src
     commands:
       - npm install --quiet
       - npm run build
